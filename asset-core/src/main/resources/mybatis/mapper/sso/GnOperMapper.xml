@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.myunihome.myxapp.sso.dao.mapper.interfaces.GnOperMapper" >
+  <resultMap id="BaseResultMap" type="com.myunihome.myxapp.sso.dao.mapper.bo.GnOper" >
+    <id column="OPER_ID" property="operId" jdbcType="BIGINT" />
+    <result column="OPER_CODE" property="operCode" jdbcType="VARCHAR" />
+    <result column="STAFFNO_ID" property="staffnoId" jdbcType="BIGINT" />
+    <result column="ORG_TYPE" property="orgType" jdbcType="VARCHAR" />
+    <result column="ORG_ID" property="orgId" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+    <result column="CREATE_OPER_ID" property="createOperId" jdbcType="BIGINT" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="DATE" />
+    <result column="UPDATE_OPER_ID" property="updateOperId" jdbcType="BIGINT" />
+    <result column="TENANT_ID" property="tenantId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    OPER_ID, OPER_CODE, STAFFNO_ID, ORG_TYPE, ORG_ID, STATE, REMARK, CREATE_TIME, CREATE_OPER_ID, 
+    UPDATE_TIME, UPDATE_OPER_ID, TENANT_ID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.myunihome.myxapp.sso.dao.mapper.bo.GnOperCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from gn_oper
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="int" >
+    select 
+    <include refid="Base_Column_List" />
+    from gn_oper
+    where OPER_ID = #{operId,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="int" >
+    delete from gn_oper
+    where OPER_ID = #{operId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.myunihome.myxapp.sso.dao.mapper.bo.GnOperCriteria" >
+    delete from gn_oper
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.myunihome.myxapp.sso.dao.mapper.bo.GnOper" >
+    insert into gn_oper (OPER_ID, OPER_CODE, STAFFNO_ID, 
+      ORG_TYPE, ORG_ID, STATE, 
+      REMARK, CREATE_TIME, CREATE_OPER_ID, 
+      UPDATE_TIME, UPDATE_OPER_ID, TENANT_ID
+      )
+    values (#{operId,jdbcType=BIGINT}, #{operCode,jdbcType=VARCHAR}, #{staffnoId,jdbcType=BIGINT}, 
+      #{orgType,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}, #{createOperId,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=DATE}, #{updateOperId,jdbcType=BIGINT}, #{tenantId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.myunihome.myxapp.sso.dao.mapper.bo.GnOper" >
+    insert into gn_oper
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      OPER_ID,
+      <if test="operCode != null" >
+        OPER_CODE,
+      </if>
+      STAFFNO_ID,
+      <if test="orgType != null" >
+        ORG_TYPE,
+      </if>
+      <if test="orgId != null" >
+        ORG_ID,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      CREATE_OPER_ID,
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      UPDATE_OPER_ID,
+      <if test="tenantId != null" >
+        TENANT_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{operId,jdbcType=BIGINT},
+      <if test="operCode != null" >
+        #{operCode,jdbcType=VARCHAR},
+      </if>
+      #{staffnoId,jdbcType=BIGINT},
+      <if test="orgType != null" >
+        #{orgType,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=DATE},
+      </if>
+      #{createOperId,jdbcType=BIGINT},
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=DATE},
+      </if>
+      #{updateOperId,jdbcType=BIGINT},
+      <if test="tenantId != null" >
+        #{tenantId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.myunihome.myxapp.sso.dao.mapper.bo.GnOperCriteria" resultType="java.lang.Integer" >
+    select count(*) from gn_oper
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update gn_oper
+    <set >
+      <if test="record.operId != null" >
+        OPER_ID = #{record.operId,jdbcType=BIGINT},
+      </if>
+      <if test="record.operCode != null" >
+        OPER_CODE = #{record.operCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffnoId != null" >
+        STAFFNO_ID = #{record.staffnoId,jdbcType=BIGINT},
+      </if>
+      <if test="record.orgType != null" >
+        ORG_TYPE = #{record.orgType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orgId != null" >
+        ORG_ID = #{record.orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        STATE = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=DATE},
+      </if>
+      <if test="record.createOperId != null" >
+        CREATE_OPER_ID = #{record.createOperId,jdbcType=BIGINT},
+      </if>
+      <if test="record.updateTime != null" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=DATE},
+      </if>
+      <if test="record.updateOperId != null" >
+        UPDATE_OPER_ID = #{record.updateOperId,jdbcType=BIGINT},
+      </if>
+      <if test="record.tenantId != null" >
+        TENANT_ID = #{record.tenantId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update gn_oper
+    set OPER_ID = #{record.operId,jdbcType=BIGINT},
+      OPER_CODE = #{record.operCode,jdbcType=VARCHAR},
+      STAFFNO_ID = #{record.staffnoId,jdbcType=BIGINT},
+      ORG_TYPE = #{record.orgType,jdbcType=VARCHAR},
+      ORG_ID = #{record.orgId,jdbcType=VARCHAR},
+      STATE = #{record.state,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=DATE},
+      CREATE_OPER_ID = #{record.createOperId,jdbcType=BIGINT},
+      UPDATE_TIME = #{record.updateTime,jdbcType=DATE},
+      UPDATE_OPER_ID = #{record.updateOperId,jdbcType=BIGINT},
+      TENANT_ID = #{record.tenantId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.myunihome.myxapp.sso.dao.mapper.bo.GnOper" >
+    update gn_oper
+    <set >
+      <if test="operCode != null" >
+        OPER_CODE = #{operCode,jdbcType=VARCHAR},
+      </if>
+      <if test="staffnoId != null" >
+        STAFFNO_ID = #{staffnoId,jdbcType=BIGINT},
+      </if>
+      <if test="orgType != null" >
+        ORG_TYPE = #{orgType,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        ORG_ID = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="createOperId != null" >
+        CREATE_OPER_ID = #{createOperId,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="updateOperId != null" >
+        UPDATE_OPER_ID = #{updateOperId,jdbcType=BIGINT},
+      </if>
+      <if test="tenantId != null" >
+        TENANT_ID = #{tenantId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where OPER_ID = #{operId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.myunihome.myxapp.sso.dao.mapper.bo.GnOper" >
+    update gn_oper
+    set OPER_CODE = #{operCode,jdbcType=VARCHAR},
+      STAFFNO_ID = #{staffnoId,jdbcType=BIGINT},
+      ORG_TYPE = #{orgType,jdbcType=VARCHAR},
+      ORG_ID = #{orgId,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=DATE},
+      CREATE_OPER_ID = #{createOperId,jdbcType=BIGINT},
+      UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      UPDATE_OPER_ID = #{updateOperId,jdbcType=BIGINT},
+      TENANT_ID = #{tenantId,jdbcType=VARCHAR}
+    where OPER_ID = #{operId,jdbcType=BIGINT}
+  </update>
+</mapper>

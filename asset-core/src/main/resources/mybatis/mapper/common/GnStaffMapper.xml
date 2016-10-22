@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.myunihome.myxapp.common.dao.mapper.interfaces.GnStaffMapper" >
+  <resultMap id="BaseResultMap" type="com.myunihome.myxapp.common.dao.mapper.bo.GnStaff" >
+    <id column="STAFF_ID" property="staffId" jdbcType="VARCHAR" />
+    <result column="STAFF_NO" property="staffNo" jdbcType="VARCHAR" />
+    <result column="STAFF_NAME" property="staffName" jdbcType="VARCHAR" />
+    <result column="STAFF_CLASS" property="staffClass" jdbcType="VARCHAR" />
+    <result column="DEPART_ID" property="departId" jdbcType="VARCHAR" />
+    <result column="CONTACT_TEL" property="contactTel" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="POSTCODE" property="postcode" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <result column="ACTIVE_TIME" property="activeTime" jdbcType="DATE" />
+    <result column="INACTIVE_TIME" property="inactiveTime" jdbcType="DATE" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+    <result column="CREATE_OPER_ID" property="createOperId" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="DATE" />
+    <result column="UPDATE_OPER_ID" property="updateOperId" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="TENANT_ID" property="tenantId" jdbcType="VARCHAR" />
+    <result column="POSITION_CODE" property="positionCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    STAFF_ID, STAFF_NO, STAFF_NAME, STAFF_CLASS, DEPART_ID, CONTACT_TEL, EMAIL, ADDRESS, 
+    POSTCODE, STATE, ACTIVE_TIME, INACTIVE_TIME, CREATE_TIME, CREATE_OPER_ID, UPDATE_TIME, 
+    UPDATE_OPER_ID, REMARK, TENANT_ID, POSITION_CODE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.myunihome.myxapp.common.dao.mapper.bo.GnStaffCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from gn_staff
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from gn_staff
+    where STAFF_ID = #{staffId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from gn_staff
+    where STAFF_ID = #{staffId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.myunihome.myxapp.common.dao.mapper.bo.GnStaffCriteria" >
+    delete from gn_staff
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.myunihome.myxapp.common.dao.mapper.bo.GnStaff" >
+    insert into gn_staff (STAFF_ID, STAFF_NO, STAFF_NAME, 
+      STAFF_CLASS, DEPART_ID, CONTACT_TEL, 
+      EMAIL, ADDRESS, POSTCODE, 
+      STATE, ACTIVE_TIME, INACTIVE_TIME, 
+      CREATE_TIME, CREATE_OPER_ID, UPDATE_TIME, 
+      UPDATE_OPER_ID, REMARK, TENANT_ID, 
+      POSITION_CODE)
+    values (#{staffId,jdbcType=VARCHAR}, #{staffNo,jdbcType=VARCHAR}, #{staffName,jdbcType=VARCHAR}, 
+      #{staffClass,jdbcType=VARCHAR}, #{departId,jdbcType=VARCHAR}, #{contactTel,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{postcode,jdbcType=VARCHAR}, 
+      #{state,jdbcType=VARCHAR}, #{activeTime,jdbcType=DATE}, #{inactiveTime,jdbcType=DATE}, 
+      #{createTime,jdbcType=DATE}, #{createOperId,jdbcType=VARCHAR}, #{updateTime,jdbcType=DATE}, 
+      #{updateOperId,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, 
+      #{positionCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.myunihome.myxapp.common.dao.mapper.bo.GnStaff" >
+    insert into gn_staff
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="staffId != null" >
+        STAFF_ID,
+      </if>
+      <if test="staffNo != null" >
+        STAFF_NO,
+      </if>
+      <if test="staffName != null" >
+        STAFF_NAME,
+      </if>
+      <if test="staffClass != null" >
+        STAFF_CLASS,
+      </if>
+      <if test="departId != null" >
+        DEPART_ID,
+      </if>
+      <if test="contactTel != null" >
+        CONTACT_TEL,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="address != null" >
+        ADDRESS,
+      </if>
+      <if test="postcode != null" >
+        POSTCODE,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="activeTime != null" >
+        ACTIVE_TIME,
+      </if>
+      <if test="inactiveTime != null" >
+        INACTIVE_TIME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="createOperId != null" >
+        CREATE_OPER_ID,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="updateOperId != null" >
+        UPDATE_OPER_ID,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="tenantId != null" >
+        TENANT_ID,
+      </if>
+      <if test="positionCode != null" >
+        POSITION_CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="staffId != null" >
+        #{staffId,jdbcType=VARCHAR},
+      </if>
+      <if test="staffNo != null" >
+        #{staffNo,jdbcType=VARCHAR},
+      </if>
+      <if test="staffName != null" >
+        #{staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffClass != null" >
+        #{staffClass,jdbcType=VARCHAR},
+      </if>
+      <if test="departId != null" >
+        #{departId,jdbcType=VARCHAR},
+      </if>
+      <if test="contactTel != null" >
+        #{contactTel,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null" >
+        #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="activeTime != null" >
+        #{activeTime,jdbcType=DATE},
+      </if>
+      <if test="inactiveTime != null" >
+        #{inactiveTime,jdbcType=DATE},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="createOperId != null" >
+        #{createOperId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="updateOperId != null" >
+        #{updateOperId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantId != null" >
+        #{tenantId,jdbcType=VARCHAR},
+      </if>
+      <if test="positionCode != null" >
+        #{positionCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.myunihome.myxapp.common.dao.mapper.bo.GnStaffCriteria" resultType="java.lang.Integer" >
+    select count(*) from gn_staff
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update gn_staff
+    <set >
+      <if test="record.staffId != null" >
+        STAFF_ID = #{record.staffId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffNo != null" >
+        STAFF_NO = #{record.staffNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffName != null" >
+        STAFF_NAME = #{record.staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffClass != null" >
+        STAFF_CLASS = #{record.staffClass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.departId != null" >
+        DEPART_ID = #{record.departId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactTel != null" >
+        CONTACT_TEL = #{record.contactTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        EMAIL = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        ADDRESS = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postcode != null" >
+        POSTCODE = #{record.postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        STATE = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.activeTime != null" >
+        ACTIVE_TIME = #{record.activeTime,jdbcType=DATE},
+      </if>
+      <if test="record.inactiveTime != null" >
+        INACTIVE_TIME = #{record.inactiveTime,jdbcType=DATE},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=DATE},
+      </if>
+      <if test="record.createOperId != null" >
+        CREATE_OPER_ID = #{record.createOperId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=DATE},
+      </if>
+      <if test="record.updateOperId != null" >
+        UPDATE_OPER_ID = #{record.updateOperId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tenantId != null" >
+        TENANT_ID = #{record.tenantId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.positionCode != null" >
+        POSITION_CODE = #{record.positionCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update gn_staff
+    set STAFF_ID = #{record.staffId,jdbcType=VARCHAR},
+      STAFF_NO = #{record.staffNo,jdbcType=VARCHAR},
+      STAFF_NAME = #{record.staffName,jdbcType=VARCHAR},
+      STAFF_CLASS = #{record.staffClass,jdbcType=VARCHAR},
+      DEPART_ID = #{record.departId,jdbcType=VARCHAR},
+      CONTACT_TEL = #{record.contactTel,jdbcType=VARCHAR},
+      EMAIL = #{record.email,jdbcType=VARCHAR},
+      ADDRESS = #{record.address,jdbcType=VARCHAR},
+      POSTCODE = #{record.postcode,jdbcType=VARCHAR},
+      STATE = #{record.state,jdbcType=VARCHAR},
+      ACTIVE_TIME = #{record.activeTime,jdbcType=DATE},
+      INACTIVE_TIME = #{record.inactiveTime,jdbcType=DATE},
+      CREATE_TIME = #{record.createTime,jdbcType=DATE},
+      CREATE_OPER_ID = #{record.createOperId,jdbcType=VARCHAR},
+      UPDATE_TIME = #{record.updateTime,jdbcType=DATE},
+      UPDATE_OPER_ID = #{record.updateOperId,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      TENANT_ID = #{record.tenantId,jdbcType=VARCHAR},
+      POSITION_CODE = #{record.positionCode,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.myunihome.myxapp.common.dao.mapper.bo.GnStaff" >
+    update gn_staff
+    <set >
+      <if test="staffNo != null" >
+        STAFF_NO = #{staffNo,jdbcType=VARCHAR},
+      </if>
+      <if test="staffName != null" >
+        STAFF_NAME = #{staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffClass != null" >
+        STAFF_CLASS = #{staffClass,jdbcType=VARCHAR},
+      </if>
+      <if test="departId != null" >
+        DEPART_ID = #{departId,jdbcType=VARCHAR},
+      </if>
+      <if test="contactTel != null" >
+        CONTACT_TEL = #{contactTel,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null" >
+        POSTCODE = #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="activeTime != null" >
+        ACTIVE_TIME = #{activeTime,jdbcType=DATE},
+      </if>
+      <if test="inactiveTime != null" >
+        INACTIVE_TIME = #{inactiveTime,jdbcType=DATE},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="createOperId != null" >
+        CREATE_OPER_ID = #{createOperId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="updateOperId != null" >
+        UPDATE_OPER_ID = #{updateOperId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantId != null" >
+        TENANT_ID = #{tenantId,jdbcType=VARCHAR},
+      </if>
+      <if test="positionCode != null" >
+        POSITION_CODE = #{positionCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where STAFF_ID = #{staffId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.myunihome.myxapp.common.dao.mapper.bo.GnStaff" >
+    update gn_staff
+    set STAFF_NO = #{staffNo,jdbcType=VARCHAR},
+      STAFF_NAME = #{staffName,jdbcType=VARCHAR},
+      STAFF_CLASS = #{staffClass,jdbcType=VARCHAR},
+      DEPART_ID = #{departId,jdbcType=VARCHAR},
+      CONTACT_TEL = #{contactTel,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      POSTCODE = #{postcode,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=VARCHAR},
+      ACTIVE_TIME = #{activeTime,jdbcType=DATE},
+      INACTIVE_TIME = #{inactiveTime,jdbcType=DATE},
+      CREATE_TIME = #{createTime,jdbcType=DATE},
+      CREATE_OPER_ID = #{createOperId,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      UPDATE_OPER_ID = #{updateOperId,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      TENANT_ID = #{tenantId,jdbcType=VARCHAR},
+      POSITION_CODE = #{positionCode,jdbcType=VARCHAR}
+    where STAFF_ID = #{staffId,jdbcType=VARCHAR}
+  </update>
+</mapper>

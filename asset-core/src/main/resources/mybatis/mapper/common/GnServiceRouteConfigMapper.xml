@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.myunihome.myxapp.common.dao.mapper.interfaces.GnServiceRouteConfigMapper" >
+  <resultMap id="BaseResultMap" type="com.myunihome.myxapp.common.dao.mapper.bo.GnServiceRouteConfig" >
+    <id column="ROUTE_ID" property="routeId" jdbcType="DECIMAL" />
+    <result column="SERVICE_TYPE" property="serviceType" jdbcType="VARCHAR" />
+    <result column="ROUTE_PARAM_NAME" property="routeParamName" jdbcType="VARCHAR" />
+    <result column="ROUTE_PARAM_VALUE" property="routeParamValue" jdbcType="VARCHAR" />
+    <result column="ROUTE_SERVICE" property="routeService" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <result column="TENANT_ID" property="tenantId" jdbcType="VARCHAR" />
+    <result column="CENTER_CODE" property="centerCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ROUTE_ID, SERVICE_TYPE, ROUTE_PARAM_NAME, ROUTE_PARAM_VALUE, ROUTE_SERVICE, REMARK, 
+    STATE, TENANT_ID, CENTER_CODE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.myunihome.myxapp.common.dao.mapper.bo.GnServiceRouteConfigCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from gn_service_route_config
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from gn_service_route_config
+    where ROUTE_ID = #{routeId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from gn_service_route_config
+    where ROUTE_ID = #{routeId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.myunihome.myxapp.common.dao.mapper.bo.GnServiceRouteConfigCriteria" >
+    delete from gn_service_route_config
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.myunihome.myxapp.common.dao.mapper.bo.GnServiceRouteConfig" >
+    insert into gn_service_route_config (ROUTE_ID, SERVICE_TYPE, ROUTE_PARAM_NAME, 
+      ROUTE_PARAM_VALUE, ROUTE_SERVICE, REMARK, 
+      STATE, TENANT_ID, CENTER_CODE
+      )
+    values (#{routeId,jdbcType=DECIMAL}, #{serviceType,jdbcType=VARCHAR}, #{routeParamName,jdbcType=VARCHAR}, 
+      #{routeParamValue,jdbcType=VARCHAR}, #{routeService,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{state,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{centerCode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.myunihome.myxapp.common.dao.mapper.bo.GnServiceRouteConfig" >
+    insert into gn_service_route_config
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="routeId != null" >
+        ROUTE_ID,
+      </if>
+      <if test="serviceType != null" >
+        SERVICE_TYPE,
+      </if>
+      <if test="routeParamName != null" >
+        ROUTE_PARAM_NAME,
+      </if>
+      <if test="routeParamValue != null" >
+        ROUTE_PARAM_VALUE,
+      </if>
+      <if test="routeService != null" >
+        ROUTE_SERVICE,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="tenantId != null" >
+        TENANT_ID,
+      </if>
+      <if test="centerCode != null" >
+        CENTER_CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="routeId != null" >
+        #{routeId,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceType != null" >
+        #{serviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="routeParamName != null" >
+        #{routeParamName,jdbcType=VARCHAR},
+      </if>
+      <if test="routeParamValue != null" >
+        #{routeParamValue,jdbcType=VARCHAR},
+      </if>
+      <if test="routeService != null" >
+        #{routeService,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantId != null" >
+        #{tenantId,jdbcType=VARCHAR},
+      </if>
+      <if test="centerCode != null" >
+        #{centerCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.myunihome.myxapp.common.dao.mapper.bo.GnServiceRouteConfigCriteria" resultType="java.lang.Integer" >
+    select count(*) from gn_service_route_config
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update gn_service_route_config
+    <set >
+      <if test="record.routeId != null" >
+        ROUTE_ID = #{record.routeId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.serviceType != null" >
+        SERVICE_TYPE = #{record.serviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.routeParamName != null" >
+        ROUTE_PARAM_NAME = #{record.routeParamName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.routeParamValue != null" >
+        ROUTE_PARAM_VALUE = #{record.routeParamValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.routeService != null" >
+        ROUTE_SERVICE = #{record.routeService,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        STATE = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tenantId != null" >
+        TENANT_ID = #{record.tenantId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.centerCode != null" >
+        CENTER_CODE = #{record.centerCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update gn_service_route_config
+    set ROUTE_ID = #{record.routeId,jdbcType=DECIMAL},
+      SERVICE_TYPE = #{record.serviceType,jdbcType=VARCHAR},
+      ROUTE_PARAM_NAME = #{record.routeParamName,jdbcType=VARCHAR},
+      ROUTE_PARAM_VALUE = #{record.routeParamValue,jdbcType=VARCHAR},
+      ROUTE_SERVICE = #{record.routeService,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      STATE = #{record.state,jdbcType=VARCHAR},
+      TENANT_ID = #{record.tenantId,jdbcType=VARCHAR},
+      CENTER_CODE = #{record.centerCode,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.myunihome.myxapp.common.dao.mapper.bo.GnServiceRouteConfig" >
+    update gn_service_route_config
+    <set >
+      <if test="serviceType != null" >
+        SERVICE_TYPE = #{serviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="routeParamName != null" >
+        ROUTE_PARAM_NAME = #{routeParamName,jdbcType=VARCHAR},
+      </if>
+      <if test="routeParamValue != null" >
+        ROUTE_PARAM_VALUE = #{routeParamValue,jdbcType=VARCHAR},
+      </if>
+      <if test="routeService != null" >
+        ROUTE_SERVICE = #{routeService,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantId != null" >
+        TENANT_ID = #{tenantId,jdbcType=VARCHAR},
+      </if>
+      <if test="centerCode != null" >
+        CENTER_CODE = #{centerCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ROUTE_ID = #{routeId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.myunihome.myxapp.common.dao.mapper.bo.GnServiceRouteConfig" >
+    update gn_service_route_config
+    set SERVICE_TYPE = #{serviceType,jdbcType=VARCHAR},
+      ROUTE_PARAM_NAME = #{routeParamName,jdbcType=VARCHAR},
+      ROUTE_PARAM_VALUE = #{routeParamValue,jdbcType=VARCHAR},
+      ROUTE_SERVICE = #{routeService,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=VARCHAR},
+      TENANT_ID = #{tenantId,jdbcType=VARCHAR},
+      CENTER_CODE = #{centerCode,jdbcType=VARCHAR}
+    where ROUTE_ID = #{routeId,jdbcType=DECIMAL}
+  </update>
+</mapper>

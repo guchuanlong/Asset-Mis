@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myunihome.myxapp.sso.dao.mapper.interfaces.GnStaffnoMapper">
+  <resultMap id="BaseResultMap" type="com.myunihome.myxapp.sso.dao.mapper.bo.GnStaffno">
+    <id column="STAFFNO_ID" jdbcType="BIGINT" property="staffnoId" />
+    <result column="STAFF_NO" jdbcType="VARCHAR" property="staffNo" />
+    <result column="STAFF_PASSWD" jdbcType="VARCHAR" property="staffPasswd" />
+    <result column="STAFF_ID" jdbcType="VARCHAR" property="staffId" />
+    <result column="STAFF_NAME" jdbcType="VARCHAR" property="staffName" />
+    <result column="STATE" jdbcType="VARCHAR" property="state" />
+    <result column="ACTIVE_TIME" jdbcType="DATE" property="activeTime" />
+    <result column="INACTIVE_TIME" jdbcType="DATE" property="inactiveTime" />
+    <result column="CREATE_TIME" jdbcType="DATE" property="createTime" />
+    <result column="CREATE_OPER_ID" jdbcType="BIGINT" property="createOperId" />
+    <result column="UPDATE_TIME" jdbcType="DATE" property="updateTime" />
+    <result column="UPDATE_OPER_ID" jdbcType="BIGINT" property="updateOperId" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="TENANT_ID" jdbcType="VARCHAR" property="tenantId" />
+    <result column="PWD_UPDATE_TIME" jdbcType="DATE" property="pwdUpdateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    STAFFNO_ID, STAFF_NO, STAFF_PASSWD, STAFF_ID, STAFF_NAME, STATE, ACTIVE_TIME, INACTIVE_TIME, 
+    CREATE_TIME, CREATE_OPER_ID, UPDATE_TIME, UPDATE_OPER_ID, REMARK, TENANT_ID, PWD_UPDATE_TIME
+  </sql>
+  <select id="selectByExample" parameterType="com.myunihome.myxapp.sso.dao.mapper.bo.GnStaffnoCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from gn_staffno
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause} 
+    </if>
+    <if test="limitStart != null and limitStart>=0">
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from gn_staffno
+    where STAFFNO_ID = #{staffnoId,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="long">
+    delete from gn_staffno
+    where STAFFNO_ID = #{staffnoId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.myunihome.myxapp.sso.dao.mapper.bo.GnStaffnoCriteria">
+    delete from gn_staffno
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  
+  <insert id="insert" parameterType="com.myunihome.myxapp.sso.dao.mapper.bo.GnStaffno">
+    insert into gn_staffno (STAFFNO_ID, STAFF_NO, STAFF_PASSWD, 
+      STAFF_ID, STAFF_NAME, STATE, 
+      ACTIVE_TIME, INACTIVE_TIME, CREATE_TIME, 
+      CREATE_OPER_ID, UPDATE_TIME, UPDATE_OPER_ID, 
+      REMARK, TENANT_ID, PWD_UPDATE_TIME
+      )
+    values (#{staffnoId,jdbcType=BIGINT}, #{staffNo,jdbcType=VARCHAR}, #{staffPasswd,jdbcType=VARCHAR}, 
+      #{staffId,jdbcType=VARCHAR}, #{staffName,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, 
+      #{activeTime,jdbcType=DATE}, #{inactiveTime,jdbcType=DATE}, #{createTime,jdbcType=DATE}, 
+      #{createOperId,jdbcType=BIGINT}, #{updateTime,jdbcType=DATE}, #{updateOperId,jdbcType=BIGINT}, 
+      #{remark,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}, #{pwdUpdateTime,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.myunihome.myxapp.sso.dao.mapper.bo.GnStaffno">
+    insert into gn_staffno
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      STAFFNO_ID,
+      <if test="staffNo != null">
+        STAFF_NO,
+      </if>
+      <if test="staffPasswd != null">
+        STAFF_PASSWD,
+      </if>
+      <if test="staffId != null">
+        STAFF_ID,
+      </if>
+      <if test="staffName != null">
+        STAFF_NAME,
+      </if>
+      <if test="state != null">
+        STATE,
+      </if>
+      <if test="activeTime != null">
+        ACTIVE_TIME,
+      </if>
+      <if test="inactiveTime != null">
+        INACTIVE_TIME,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      CREATE_OPER_ID,
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      UPDATE_OPER_ID,
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="tenantId != null">
+        TENANT_ID,
+      </if>
+      <if test="pwdUpdateTime != null">
+        PWD_UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{staffnoId,jdbcType=BIGINT},
+      <if test="staffNo != null">
+        #{staffNo,jdbcType=VARCHAR},
+      </if>
+      <if test="staffPasswd != null">
+        #{staffPasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="staffId != null">
+        #{staffId,jdbcType=VARCHAR},
+      </if>
+      <if test="staffName != null">
+        #{staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="activeTime != null">
+        #{activeTime,jdbcType=DATE},
+      </if>
+      <if test="inactiveTime != null">
+        #{inactiveTime,jdbcType=DATE},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=DATE},
+      </if>
+      #{createOperId,jdbcType=BIGINT},
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=DATE},
+      </if>
+      #{updateOperId,jdbcType=BIGINT},
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantId != null">
+        #{tenantId,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdUpdateTime != null">
+        #{pwdUpdateTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.myunihome.myxapp.sso.dao.mapper.bo.GnStaffnoCriteria" resultType="java.lang.Integer">
+    select count(*) from gn_staffno
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update gn_staffno
+    <set>
+      <if test="record.staffnoId != null">
+        STAFFNO_ID = #{record.staffnoId,jdbcType=BIGINT},
+      </if>
+      <if test="record.staffNo != null">
+        STAFF_NO = #{record.staffNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffPasswd != null">
+        STAFF_PASSWD = #{record.staffPasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffId != null">
+        STAFF_ID = #{record.staffId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffName != null">
+        STAFF_NAME = #{record.staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null">
+        STATE = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.activeTime != null">
+        ACTIVE_TIME = #{record.activeTime,jdbcType=DATE},
+      </if>
+      <if test="record.inactiveTime != null">
+        INACTIVE_TIME = #{record.inactiveTime,jdbcType=DATE},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=DATE},
+      </if>
+      <if test="record.createOperId != null">
+        CREATE_OPER_ID = #{record.createOperId,jdbcType=BIGINT},
+      </if>
+      <if test="record.updateTime != null">
+        UPDATE_TIME = #{record.updateTime,jdbcType=DATE},
+      </if>
+      <if test="record.updateOperId != null">
+        UPDATE_OPER_ID = #{record.updateOperId,jdbcType=BIGINT},
+      </if>
+      <if test="record.remark != null">
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tenantId != null">
+        TENANT_ID = #{record.tenantId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pwdUpdateTime != null">
+        PWD_UPDATE_TIME = #{record.pwdUpdateTime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update gn_staffno
+    set STAFFNO_ID = #{record.staffnoId,jdbcType=BIGINT},
+      STAFF_NO = #{record.staffNo,jdbcType=VARCHAR},
+      STAFF_PASSWD = #{record.staffPasswd,jdbcType=VARCHAR},
+      STAFF_ID = #{record.staffId,jdbcType=VARCHAR},
+      STAFF_NAME = #{record.staffName,jdbcType=VARCHAR},
+      STATE = #{record.state,jdbcType=VARCHAR},
+      ACTIVE_TIME = #{record.activeTime,jdbcType=DATE},
+      INACTIVE_TIME = #{record.inactiveTime,jdbcType=DATE},
+      CREATE_TIME = #{record.createTime,jdbcType=DATE},
+      CREATE_OPER_ID = #{record.createOperId,jdbcType=BIGINT},
+      UPDATE_TIME = #{record.updateTime,jdbcType=DATE},
+      UPDATE_OPER_ID = #{record.updateOperId,jdbcType=BIGINT},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      TENANT_ID = #{record.tenantId,jdbcType=VARCHAR},
+      PWD_UPDATE_TIME = #{record.pwdUpdateTime,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.myunihome.myxapp.sso.dao.mapper.bo.GnStaffno">
+    update gn_staffno
+    <set>
+      <if test="staffNo != null">
+        STAFF_NO = #{staffNo,jdbcType=VARCHAR},
+      </if>
+      <if test="staffPasswd != null">
+        STAFF_PASSWD = #{staffPasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="staffId != null">
+        STAFF_ID = #{staffId,jdbcType=VARCHAR},
+      </if>
+      <if test="staffName != null">
+        STAFF_NAME = #{staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="activeTime != null">
+        ACTIVE_TIME = #{activeTime,jdbcType=DATE},
+      </if>
+      <if test="inactiveTime != null">
+        INACTIVE_TIME = #{inactiveTime,jdbcType=DATE},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="createOperId != null">
+        CREATE_OPER_ID = #{createOperId,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="updateOperId != null">
+        UPDATE_OPER_ID = #{updateOperId,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantId != null">
+        TENANT_ID = #{tenantId,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdUpdateTime != null">
+        PWD_UPDATE_TIME = #{pwdUpdateTime,jdbcType=DATE},
+      </if>
+    </set>
+    where STAFFNO_ID = #{staffnoId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.myunihome.myxapp.sso.dao.mapper.bo.GnStaffno">
+    update gn_staffno
+    set STAFF_NO = #{staffNo,jdbcType=VARCHAR},
+      STAFF_PASSWD = #{staffPasswd,jdbcType=VARCHAR},
+      STAFF_ID = #{staffId,jdbcType=VARCHAR},
+      STAFF_NAME = #{staffName,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=VARCHAR},
+      ACTIVE_TIME = #{activeTime,jdbcType=DATE},
+      INACTIVE_TIME = #{inactiveTime,jdbcType=DATE},
+      CREATE_TIME = #{createTime,jdbcType=DATE},
+      CREATE_OPER_ID = #{createOperId,jdbcType=BIGINT},
+      UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      UPDATE_OPER_ID = #{updateOperId,jdbcType=BIGINT},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      TENANT_ID = #{tenantId,jdbcType=VARCHAR},
+      PWD_UPDATE_TIME = #{pwdUpdateTime,jdbcType=DATE}
+    where STAFFNO_ID = #{staffnoId,jdbcType=BIGINT}
+  </update>
+  
+</mapper>

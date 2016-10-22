@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myunihome.myxapp.sso.dao.mapper.interfaces.GnUserLoginMapper">
+  <resultMap id="BaseResultMap" type="com.myunihome.myxapp.sso.dao.mapper.bo.GnUserLogin">
+    <id column="user_login_id" jdbcType="BIGINT" property="userLoginId" />
+    <result column="User_ID" jdbcType="BIGINT" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_iphone" jdbcType="VARCHAR" property="userIphone" />
+    <result column="user_mail" jdbcType="VARCHAR" property="userMail" />
+    <result column="USER_PASSWD" jdbcType="VARCHAR" property="userPasswd" />
+    <result column="STATE" jdbcType="VARCHAR" property="state" />
+    <result column="ACTIVE_TIME" jdbcType="DATE" property="activeTime" />
+    <result column="INACTIVE_TIME" jdbcType="DATE" property="inactiveTime" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="TENANT_ID" jdbcType="VARCHAR" property="tenantId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    user_login_id, User_ID, user_name, user_iphone, user_mail, USER_PASSWD, STATE, ACTIVE_TIME, 
+    INACTIVE_TIME, REMARK, TENANT_ID
+  </sql>
+  <select id="selectByExample" parameterType="com.myunihome.myxapp.sso.dao.mapper.bo.GnUserLoginCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from gn_user_login
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart&gt;=0">
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from gn_user_login
+    where user_login_id = #{userLoginId,jdbcType=BIGINT} 
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="long">
+    delete from gn_user_login
+    where user_login_id = #{userLoginId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.myunihome.myxapp.sso.dao.mapper.bo.GnUserLoginCriteria">
+    delete from gn_user_login
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.myunihome.myxapp.sso.dao.mapper.bo.GnUserLogin">
+    insert into gn_user_login (user_login_id, User_ID, user_name, 
+      user_iphone, user_mail, USER_PASSWD, 
+      STATE, ACTIVE_TIME, INACTIVE_TIME, 
+      REMARK, TENANT_ID)
+    values (#{userLoginId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, 
+      #{userIphone,jdbcType=VARCHAR}, #{userMail,jdbcType=VARCHAR}, #{userPasswd,jdbcType=VARCHAR}, 
+      #{state,jdbcType=VARCHAR}, #{activeTime,jdbcType=DATE}, #{inactiveTime,jdbcType=DATE}, 
+      #{remark,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.myunihome.myxapp.sso.dao.mapper.bo.GnUserLogin">
+    insert into gn_user_login
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      user_login_id,
+      User_ID,
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userIphone != null">
+        user_iphone,
+      </if>
+      <if test="userMail != null">
+        user_mail,
+      </if>
+      <if test="userPasswd != null">
+        USER_PASSWD,
+      </if>
+      <if test="state != null">
+        STATE,
+      </if>
+      <if test="activeTime != null">
+        ACTIVE_TIME,
+      </if>
+      <if test="inactiveTime != null">
+        INACTIVE_TIME,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="tenantId != null">
+        TENANT_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{userLoginId,jdbcType=BIGINT},
+      #{userId,jdbcType=BIGINT},
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userIphone != null">
+        #{userIphone,jdbcType=VARCHAR},
+      </if>
+      <if test="userMail != null">
+        #{userMail,jdbcType=VARCHAR},
+      </if>
+      <if test="userPasswd != null">
+        #{userPasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="activeTime != null">
+        #{activeTime,jdbcType=DATE},
+      </if>
+      <if test="inactiveTime != null">
+        #{inactiveTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantId != null">
+        #{tenantId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.myunihome.myxapp.sso.dao.mapper.bo.GnUserLoginCriteria" resultType="java.lang.Integer">
+    select count(*) from gn_user_login
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update gn_user_login
+    <set>
+      <if test="record.userLoginId != null">
+        user_login_id = #{record.userLoginId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null">
+        User_ID = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userIphone != null">
+        user_iphone = #{record.userIphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userMail != null">
+        user_mail = #{record.userMail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPasswd != null">
+        USER_PASSWD = #{record.userPasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null">
+        STATE = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.activeTime != null">
+        ACTIVE_TIME = #{record.activeTime,jdbcType=DATE},
+      </if>
+      <if test="record.inactiveTime != null">
+        INACTIVE_TIME = #{record.inactiveTime,jdbcType=DATE},
+      </if>
+      <if test="record.remark != null">
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tenantId != null">
+        TENANT_ID = #{record.tenantId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update gn_user_login
+    set user_login_id = #{record.userLoginId,jdbcType=BIGINT},
+      User_ID = #{record.userId,jdbcType=BIGINT},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      user_iphone = #{record.userIphone,jdbcType=VARCHAR},
+      user_mail = #{record.userMail,jdbcType=VARCHAR},
+      USER_PASSWD = #{record.userPasswd,jdbcType=VARCHAR},
+      STATE = #{record.state,jdbcType=VARCHAR},
+      ACTIVE_TIME = #{record.activeTime,jdbcType=DATE},
+      INACTIVE_TIME = #{record.inactiveTime,jdbcType=DATE},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      TENANT_ID = #{record.tenantId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.myunihome.myxapp.sso.dao.mapper.bo.GnUserLogin">
+    update gn_user_login
+    <set>
+      <if test="userId != null">
+        User_ID = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userIphone != null">
+        user_iphone = #{userIphone,jdbcType=VARCHAR},
+      </if>
+      <if test="userMail != null">
+        user_mail = #{userMail,jdbcType=VARCHAR},
+      </if>
+      <if test="userPasswd != null">
+        USER_PASSWD = #{userPasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="activeTime != null">
+        ACTIVE_TIME = #{activeTime,jdbcType=DATE},
+      </if>
+      <if test="inactiveTime != null">
+        INACTIVE_TIME = #{inactiveTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantId != null">
+        TENANT_ID = #{tenantId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_login_id = #{userLoginId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.myunihome.myxapp.sso.dao.mapper.bo.GnUserLogin">
+    update gn_user_login
+    set User_ID = #{userId,jdbcType=BIGINT},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_iphone = #{userIphone,jdbcType=VARCHAR},
+      user_mail = #{userMail,jdbcType=VARCHAR},
+      USER_PASSWD = #{userPasswd,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=VARCHAR},
+      ACTIVE_TIME = #{activeTime,jdbcType=DATE},
+      INACTIVE_TIME = #{inactiveTime,jdbcType=DATE},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      TENANT_ID = #{tenantId,jdbcType=VARCHAR}
+    where user_login_id = #{userLoginId,jdbcType=BIGINT}
+  </update>
+ 
+</mapper>

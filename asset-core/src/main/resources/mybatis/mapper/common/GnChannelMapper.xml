@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.myunihome.myxapp.common.dao.mapper.interfaces.GnChannelMapper" >
+  <resultMap id="BaseResultMap" type="com.myunihome.myxapp.common.dao.mapper.bo.GnChannel" >
+    <result column="CHNL_ID" property="chnlId" jdbcType="VARCHAR" />
+    <result column="CHNL_CODE" property="chnlCode" jdbcType="VARCHAR" />
+    <result column="CHNL_NAME" property="chnlName" jdbcType="VARCHAR" />
+    <result column="CHNL_DESC" property="chnlDesc" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <result column="CHNL_KIND_ID" property="chnlKindId" jdbcType="VARCHAR" />
+    <result column="SELF_FLAG" property="selfFlag" jdbcType="VARCHAR" />
+    <result column="FEE_CLOSE_FLAG" property="feeCloseFlag" jdbcType="VARCHAR" />
+    <result column="DEPART_ID" property="departId" jdbcType="VARCHAR" />
+    <result column="MANAGER_STAFF_ID" property="managerStaffId" jdbcType="VARCHAR" />
+    <result column="PROVINCE_CODE" property="provinceCode" jdbcType="VARCHAR" />
+    <result column="CITY_CODE" property="cityCode" jdbcType="VARCHAR" />
+    <result column="AREA_CODE" property="areaCode" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="POSTCODE" property="postcode" jdbcType="VARCHAR" />
+    <result column="LONGITUDE" property="longitude" jdbcType="VARCHAR" />
+    <result column="LATITUDE" property="latitude" jdbcType="VARCHAR" />
+    <result column="CONTACT_TEL" property="contactTel" jdbcType="VARCHAR" />
+    <result column="SUPER_CHNL_ID" property="superChnlId" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="DATE" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="TENANT_ID" property="tenantId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    CHNL_ID, CHNL_CODE, CHNL_NAME, CHNL_DESC, STATE, CHNL_KIND_ID, SELF_FLAG, FEE_CLOSE_FLAG, 
+    DEPART_ID, MANAGER_STAFF_ID, PROVINCE_CODE, CITY_CODE, AREA_CODE, ADDRESS, POSTCODE, 
+    LONGITUDE, LATITUDE, CONTACT_TEL, SUPER_CHNL_ID, CREATE_TIME, UPDATE_TIME, REMARK, 
+    TENANT_ID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.myunihome.myxapp.common.dao.mapper.bo.GnChannelCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from gn_channel
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.myunihome.myxapp.common.dao.mapper.bo.GnChannelCriteria" >
+    delete from gn_channel
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.myunihome.myxapp.common.dao.mapper.bo.GnChannel" >
+    insert into gn_channel (CHNL_ID, CHNL_CODE, CHNL_NAME, 
+      CHNL_DESC, STATE, CHNL_KIND_ID, 
+      SELF_FLAG, FEE_CLOSE_FLAG, DEPART_ID, 
+      MANAGER_STAFF_ID, PROVINCE_CODE, CITY_CODE, 
+      AREA_CODE, ADDRESS, POSTCODE, 
+      LONGITUDE, LATITUDE, CONTACT_TEL, 
+      SUPER_CHNL_ID, CREATE_TIME, UPDATE_TIME, 
+      REMARK, TENANT_ID)
+    values (#{chnlId,jdbcType=VARCHAR}, #{chnlCode,jdbcType=VARCHAR}, #{chnlName,jdbcType=VARCHAR}, 
+      #{chnlDesc,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{chnlKindId,jdbcType=VARCHAR}, 
+      #{selfFlag,jdbcType=VARCHAR}, #{feeCloseFlag,jdbcType=VARCHAR}, #{departId,jdbcType=VARCHAR}, 
+      #{managerStaffId,jdbcType=VARCHAR}, #{provinceCode,jdbcType=VARCHAR}, #{cityCode,jdbcType=VARCHAR}, 
+      #{areaCode,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{postcode,jdbcType=VARCHAR}, 
+      #{longitude,jdbcType=VARCHAR}, #{latitude,jdbcType=VARCHAR}, #{contactTel,jdbcType=VARCHAR}, 
+      #{superChnlId,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}, #{updateTime,jdbcType=DATE}, 
+      #{remark,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.myunihome.myxapp.common.dao.mapper.bo.GnChannel" >
+    insert into gn_channel
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="chnlId != null" >
+        CHNL_ID,
+      </if>
+      <if test="chnlCode != null" >
+        CHNL_CODE,
+      </if>
+      <if test="chnlName != null" >
+        CHNL_NAME,
+      </if>
+      <if test="chnlDesc != null" >
+        CHNL_DESC,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="chnlKindId != null" >
+        CHNL_KIND_ID,
+      </if>
+      <if test="selfFlag != null" >
+        SELF_FLAG,
+      </if>
+      <if test="feeCloseFlag != null" >
+        FEE_CLOSE_FLAG,
+      </if>
+      <if test="departId != null" >
+        DEPART_ID,
+      </if>
+      <if test="managerStaffId != null" >
+        MANAGER_STAFF_ID,
+      </if>
+      <if test="provinceCode != null" >
+        PROVINCE_CODE,
+      </if>
+      <if test="cityCode != null" >
+        CITY_CODE,
+      </if>
+      <if test="areaCode != null" >
+        AREA_CODE,
+      </if>
+      <if test="address != null" >
+        ADDRESS,
+      </if>
+      <if test="postcode != null" >
+        POSTCODE,
+      </if>
+      <if test="longitude != null" >
+        LONGITUDE,
+      </if>
+      <if test="latitude != null" >
+        LATITUDE,
+      </if>
+      <if test="contactTel != null" >
+        CONTACT_TEL,
+      </if>
+      <if test="superChnlId != null" >
+        SUPER_CHNL_ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="tenantId != null" >
+        TENANT_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="chnlId != null" >
+        #{chnlId,jdbcType=VARCHAR},
+      </if>
+      <if test="chnlCode != null" >
+        #{chnlCode,jdbcType=VARCHAR},
+      </if>
+      <if test="chnlName != null" >
+        #{chnlName,jdbcType=VARCHAR},
+      </if>
+      <if test="chnlDesc != null" >
+        #{chnlDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="chnlKindId != null" >
+        #{chnlKindId,jdbcType=VARCHAR},
+      </if>
+      <if test="selfFlag != null" >
+        #{selfFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="feeCloseFlag != null" >
+        #{feeCloseFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="departId != null" >
+        #{departId,jdbcType=VARCHAR},
+      </if>
+      <if test="managerStaffId != null" >
+        #{managerStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null" >
+        #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null" >
+        #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null" >
+        #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null" >
+        #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="contactTel != null" >
+        #{contactTel,jdbcType=VARCHAR},
+      </if>
+      <if test="superChnlId != null" >
+        #{superChnlId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantId != null" >
+        #{tenantId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.myunihome.myxapp.common.dao.mapper.bo.GnChannelCriteria" resultType="java.lang.Integer" >
+    select count(*) from gn_channel
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update gn_channel
+    <set >
+      <if test="record.chnlId != null" >
+        CHNL_ID = #{record.chnlId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chnlCode != null" >
+        CHNL_CODE = #{record.chnlCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chnlName != null" >
+        CHNL_NAME = #{record.chnlName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chnlDesc != null" >
+        CHNL_DESC = #{record.chnlDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        STATE = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chnlKindId != null" >
+        CHNL_KIND_ID = #{record.chnlKindId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.selfFlag != null" >
+        SELF_FLAG = #{record.selfFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.feeCloseFlag != null" >
+        FEE_CLOSE_FLAG = #{record.feeCloseFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.departId != null" >
+        DEPART_ID = #{record.departId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.managerStaffId != null" >
+        MANAGER_STAFF_ID = #{record.managerStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.provinceCode != null" >
+        PROVINCE_CODE = #{record.provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cityCode != null" >
+        CITY_CODE = #{record.cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaCode != null" >
+        AREA_CODE = #{record.areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        ADDRESS = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postcode != null" >
+        POSTCODE = #{record.postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.longitude != null" >
+        LONGITUDE = #{record.longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.latitude != null" >
+        LATITUDE = #{record.latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactTel != null" >
+        CONTACT_TEL = #{record.contactTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.superChnlId != null" >
+        SUPER_CHNL_ID = #{record.superChnlId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=DATE},
+      </if>
+      <if test="record.updateTime != null" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=DATE},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tenantId != null" >
+        TENANT_ID = #{record.tenantId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update gn_channel
+    set CHNL_ID = #{record.chnlId,jdbcType=VARCHAR},
+      CHNL_CODE = #{record.chnlCode,jdbcType=VARCHAR},
+      CHNL_NAME = #{record.chnlName,jdbcType=VARCHAR},
+      CHNL_DESC = #{record.chnlDesc,jdbcType=VARCHAR},
+      STATE = #{record.state,jdbcType=VARCHAR},
+      CHNL_KIND_ID = #{record.chnlKindId,jdbcType=VARCHAR},
+      SELF_FLAG = #{record.selfFlag,jdbcType=VARCHAR},
+      FEE_CLOSE_FLAG = #{record.feeCloseFlag,jdbcType=VARCHAR},
+      DEPART_ID = #{record.departId,jdbcType=VARCHAR},
+      MANAGER_STAFF_ID = #{record.managerStaffId,jdbcType=VARCHAR},
+      PROVINCE_CODE = #{record.provinceCode,jdbcType=VARCHAR},
+      CITY_CODE = #{record.cityCode,jdbcType=VARCHAR},
+      AREA_CODE = #{record.areaCode,jdbcType=VARCHAR},
+      ADDRESS = #{record.address,jdbcType=VARCHAR},
+      POSTCODE = #{record.postcode,jdbcType=VARCHAR},
+      LONGITUDE = #{record.longitude,jdbcType=VARCHAR},
+      LATITUDE = #{record.latitude,jdbcType=VARCHAR},
+      CONTACT_TEL = #{record.contactTel,jdbcType=VARCHAR},
+      SUPER_CHNL_ID = #{record.superChnlId,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=DATE},
+      UPDATE_TIME = #{record.updateTime,jdbcType=DATE},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      TENANT_ID = #{record.tenantId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

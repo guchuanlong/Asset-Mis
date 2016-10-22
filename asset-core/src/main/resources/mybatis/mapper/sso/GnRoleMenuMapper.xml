@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.myunihome.myxapp.sso.dao.mapper.interfaces.GnRoleMenuMapper" >
+  <resultMap id="BaseResultMap" type="com.myunihome.myxapp.sso.dao.mapper.bo.GnRoleMenu" >
+    <id column="ROLE_MENU_REL_ID" property="roleMenuRelId" jdbcType="BIGINT" />
+    <result column="ROLE_ID" property="roleId" jdbcType="BIGINT" />
+    <result column="MENU_ID" property="menuId" jdbcType="BIGINT" />
+    <result column="ACTIVE_TIME" property="activeTime" jdbcType="DATE" />
+    <result column="INACTIVE_TIME" property="inactiveTime" jdbcType="DATE" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+    <result column="CREATE_OPER_ID" property="createOperId" jdbcType="BIGINT" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="DATE" />
+    <result column="UPDATE_OPER_ID" property="updateOperId" jdbcType="BIGINT" />
+    <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+    <result column="MENU_NAME" property="menuName" jdbcType="VARCHAR" />
+    <result column="TENANT_ID" property="tenantId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ROLE_MENU_REL_ID, ROLE_ID, MENU_ID, ACTIVE_TIME, INACTIVE_TIME, CREATE_TIME, CREATE_OPER_ID, 
+    UPDATE_TIME, UPDATE_OPER_ID, ROLE_NAME, MENU_NAME, TENANT_ID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.myunihome.myxapp.sso.dao.mapper.bo.GnRoleMenuCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from gn_role_menu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="int" >
+    select 
+    <include refid="Base_Column_List" />
+    from gn_role_menu
+    where ROLE_MENU_REL_ID = #{roleMenuRelId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="int" >
+    delete from gn_role_menu
+    where ROLE_MENU_REL_ID = #{roleMenuRelId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.myunihome.myxapp.sso.dao.mapper.bo.GnRoleMenuCriteria" >
+    delete from gn_role_menu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.myunihome.myxapp.sso.dao.mapper.bo.GnRoleMenu" >
+    insert into gn_role_menu (ROLE_MENU_REL_ID, ROLE_ID, MENU_ID, 
+      ACTIVE_TIME, INACTIVE_TIME, CREATE_TIME, 
+      CREATE_OPER_ID, UPDATE_TIME, UPDATE_OPER_ID, 
+      ROLE_NAME, MENU_NAME, TENANT_ID
+      )
+    values (#{roleMenuRelId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT}, #{menuId,jdbcType=BIGINT}, 
+      #{activeTime,jdbcType=DATE}, #{inactiveTime,jdbcType=DATE}, #{createTime,jdbcType=DATE}, 
+      #{createOperId,jdbcType=BIGINT}, #{updateTime,jdbcType=DATE}, #{updateOperId,jdbcType=BIGINT}, 
+      #{roleName,jdbcType=VARCHAR}, #{menuName,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.myunihome.myxapp.sso.dao.mapper.bo.GnRoleMenu" >
+    insert into gn_role_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      ROLE_MENU_REL_ID,
+      ROLE_ID,
+      MENU_ID,
+      <if test="activeTime != null" >
+        ACTIVE_TIME,
+      </if>
+      <if test="inactiveTime != null" >
+        INACTIVE_TIME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      CREATE_OPER_ID,
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      UPDATE_OPER_ID,
+      <if test="roleName != null" >
+        ROLE_NAME,
+      </if>
+      <if test="menuName != null" >
+        MENU_NAME,
+      </if>
+      <if test="tenantId != null" >
+        TENANT_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{roleMenuRelId,jdbcType=BIGINT},
+      #{roleId,jdbcType=BIGINT},
+      #{menuId,jdbcType=BIGINT},
+      <if test="activeTime != null" >
+        #{activeTime,jdbcType=DATE},
+      </if>
+      <if test="inactiveTime != null" >
+        #{inactiveTime,jdbcType=DATE},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=DATE},
+      </if>
+      #{createOperId,jdbcType=BIGINT},
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=DATE},
+      </if>
+      #{updateOperId,jdbcType=BIGINT},
+      <if test="roleName != null" >
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuName != null" >
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantId != null" >
+        #{tenantId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.myunihome.myxapp.sso.dao.mapper.bo.GnRoleMenuCriteria" resultType="java.lang.Integer" >
+    select count(*) from gn_role_menu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update gn_role_menu
+    <set >
+      <if test="record.roleMenuRelId != null" >
+        ROLE_MENU_REL_ID = #{record.roleMenuRelId,jdbcType=BIGINT},
+      </if>
+      <if test="record.roleId != null" >
+        ROLE_ID = #{record.roleId,jdbcType=BIGINT},
+      </if>
+      <if test="record.menuId != null" >
+        MENU_ID = #{record.menuId,jdbcType=BIGINT},
+      </if>
+      <if test="record.activeTime != null" >
+        ACTIVE_TIME = #{record.activeTime,jdbcType=DATE},
+      </if>
+      <if test="record.inactiveTime != null" >
+        INACTIVE_TIME = #{record.inactiveTime,jdbcType=DATE},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=DATE},
+      </if>
+      <if test="record.createOperId != null" >
+        CREATE_OPER_ID = #{record.createOperId,jdbcType=BIGINT},
+      </if>
+      <if test="record.updateTime != null" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=DATE},
+      </if>
+      <if test="record.updateOperId != null" >
+        UPDATE_OPER_ID = #{record.updateOperId,jdbcType=BIGINT},
+      </if>
+      <if test="record.roleName != null" >
+        ROLE_NAME = #{record.roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuName != null" >
+        MENU_NAME = #{record.menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tenantId != null" >
+        TENANT_ID = #{record.tenantId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update gn_role_menu
+    set ROLE_MENU_REL_ID = #{record.roleMenuRelId,jdbcType=BIGINT},
+      ROLE_ID = #{record.roleId,jdbcType=BIGINT},
+      MENU_ID = #{record.menuId,jdbcType=BIGINT},
+      ACTIVE_TIME = #{record.activeTime,jdbcType=DATE},
+      INACTIVE_TIME = #{record.inactiveTime,jdbcType=DATE},
+      CREATE_TIME = #{record.createTime,jdbcType=DATE},
+      CREATE_OPER_ID = #{record.createOperId,jdbcType=BIGINT},
+      UPDATE_TIME = #{record.updateTime,jdbcType=DATE},
+      UPDATE_OPER_ID = #{record.updateOperId,jdbcType=BIGINT},
+      ROLE_NAME = #{record.roleName,jdbcType=VARCHAR},
+      MENU_NAME = #{record.menuName,jdbcType=VARCHAR},
+      TENANT_ID = #{record.tenantId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.myunihome.myxapp.sso.dao.mapper.bo.GnRoleMenu" >
+    update gn_role_menu
+    <set >
+      <if test="roleId != null" >
+        ROLE_ID = #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="menuId != null" >
+        MENU_ID = #{menuId,jdbcType=BIGINT},
+      </if>
+      <if test="activeTime != null" >
+        ACTIVE_TIME = #{activeTime,jdbcType=DATE},
+      </if>
+      <if test="inactiveTime != null" >
+        INACTIVE_TIME = #{inactiveTime,jdbcType=DATE},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="createOperId != null" >
+        CREATE_OPER_ID = #{createOperId,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="updateOperId != null" >
+        UPDATE_OPER_ID = #{updateOperId,jdbcType=BIGINT},
+      </if>
+      <if test="roleName != null" >
+        ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuName != null" >
+        MENU_NAME = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantId != null" >
+        TENANT_ID = #{tenantId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ROLE_MENU_REL_ID = #{roleMenuRelId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.myunihome.myxapp.sso.dao.mapper.bo.GnRoleMenu" >
+    update gn_role_menu
+    set ROLE_ID = #{roleId,jdbcType=BIGINT},
+      MENU_ID = #{menuId,jdbcType=BIGINT},
+      ACTIVE_TIME = #{activeTime,jdbcType=DATE},
+      INACTIVE_TIME = #{inactiveTime,jdbcType=DATE},
+      CREATE_TIME = #{createTime,jdbcType=DATE},
+      CREATE_OPER_ID = #{createOperId,jdbcType=BIGINT},
+      UPDATE_TIME = #{updateTime,jdbcType=DATE},
+      UPDATE_OPER_ID = #{updateOperId,jdbcType=BIGINT},
+      ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      MENU_NAME = #{menuName,jdbcType=VARCHAR},
+      TENANT_ID = #{tenantId,jdbcType=VARCHAR}
+    where ROLE_MENU_REL_ID = #{roleMenuRelId,jdbcType=BIGINT}
+  </update>
+</mapper>

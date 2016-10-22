@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.myunihome.myxapp.common.dao.mapper.interfaces.GnChlKindMapper" >
+  <resultMap id="BaseResultMap" type="com.myunihome.myxapp.common.dao.mapper.bo.GnChlKind" >
+    <id column="KIND_ID" property="kindId" jdbcType="VARCHAR" />
+    <result column="KIND_VALUE" property="kindValue" jdbcType="VARCHAR" />
+    <result column="UP_KIND_ID" property="upKindId" jdbcType="VARCHAR" />
+    <result column="KIND_LEVEL" property="kindLevel" jdbcType="VARCHAR" />
+    <result column="PROVINCE_CODE" property="provinceCode" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <result column="TENANT_ID" property="tenantId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    KIND_ID, KIND_VALUE, UP_KIND_ID, KIND_LEVEL, PROVINCE_CODE, STATE, TENANT_ID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.myunihome.myxapp.common.dao.mapper.bo.GnChlKindCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from gn_chl_kind
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from gn_chl_kind
+    where KIND_ID = #{kindId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from gn_chl_kind
+    where KIND_ID = #{kindId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.myunihome.myxapp.common.dao.mapper.bo.GnChlKindCriteria" >
+    delete from gn_chl_kind
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.myunihome.myxapp.common.dao.mapper.bo.GnChlKind" >
+    insert into gn_chl_kind (KIND_ID, KIND_VALUE, UP_KIND_ID, 
+      KIND_LEVEL, PROVINCE_CODE, STATE, 
+      TENANT_ID)
+    values (#{kindId,jdbcType=VARCHAR}, #{kindValue,jdbcType=VARCHAR}, #{upKindId,jdbcType=VARCHAR}, 
+      #{kindLevel,jdbcType=VARCHAR}, #{provinceCode,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, 
+      #{tenantId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.myunihome.myxapp.common.dao.mapper.bo.GnChlKind" >
+    insert into gn_chl_kind
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="kindId != null" >
+        KIND_ID,
+      </if>
+      <if test="kindValue != null" >
+        KIND_VALUE,
+      </if>
+      <if test="upKindId != null" >
+        UP_KIND_ID,
+      </if>
+      <if test="kindLevel != null" >
+        KIND_LEVEL,
+      </if>
+      <if test="provinceCode != null" >
+        PROVINCE_CODE,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="tenantId != null" >
+        TENANT_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="kindId != null" >
+        #{kindId,jdbcType=VARCHAR},
+      </if>
+      <if test="kindValue != null" >
+        #{kindValue,jdbcType=VARCHAR},
+      </if>
+      <if test="upKindId != null" >
+        #{upKindId,jdbcType=VARCHAR},
+      </if>
+      <if test="kindLevel != null" >
+        #{kindLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null" >
+        #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantId != null" >
+        #{tenantId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.myunihome.myxapp.common.dao.mapper.bo.GnChlKindCriteria" resultType="java.lang.Integer" >
+    select count(*) from gn_chl_kind
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update gn_chl_kind
+    <set >
+      <if test="record.kindId != null" >
+        KIND_ID = #{record.kindId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kindValue != null" >
+        KIND_VALUE = #{record.kindValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.upKindId != null" >
+        UP_KIND_ID = #{record.upKindId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kindLevel != null" >
+        KIND_LEVEL = #{record.kindLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.provinceCode != null" >
+        PROVINCE_CODE = #{record.provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        STATE = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tenantId != null" >
+        TENANT_ID = #{record.tenantId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update gn_chl_kind
+    set KIND_ID = #{record.kindId,jdbcType=VARCHAR},
+      KIND_VALUE = #{record.kindValue,jdbcType=VARCHAR},
+      UP_KIND_ID = #{record.upKindId,jdbcType=VARCHAR},
+      KIND_LEVEL = #{record.kindLevel,jdbcType=VARCHAR},
+      PROVINCE_CODE = #{record.provinceCode,jdbcType=VARCHAR},
+      STATE = #{record.state,jdbcType=VARCHAR},
+      TENANT_ID = #{record.tenantId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.myunihome.myxapp.common.dao.mapper.bo.GnChlKind" >
+    update gn_chl_kind
+    <set >
+      <if test="kindValue != null" >
+        KIND_VALUE = #{kindValue,jdbcType=VARCHAR},
+      </if>
+      <if test="upKindId != null" >
+        UP_KIND_ID = #{upKindId,jdbcType=VARCHAR},
+      </if>
+      <if test="kindLevel != null" >
+        KIND_LEVEL = #{kindLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null" >
+        PROVINCE_CODE = #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantId != null" >
+        TENANT_ID = #{tenantId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where KIND_ID = #{kindId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.myunihome.myxapp.common.dao.mapper.bo.GnChlKind" >
+    update gn_chl_kind
+    set KIND_VALUE = #{kindValue,jdbcType=VARCHAR},
+      UP_KIND_ID = #{upKindId,jdbcType=VARCHAR},
+      KIND_LEVEL = #{kindLevel,jdbcType=VARCHAR},
+      PROVINCE_CODE = #{provinceCode,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=VARCHAR},
+      TENANT_ID = #{tenantId,jdbcType=VARCHAR}
+    where KIND_ID = #{kindId,jdbcType=VARCHAR}
+  </update>
+</mapper>
